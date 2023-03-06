@@ -1,8 +1,11 @@
+import spacy
 import pickle
 import logging
 import tensorflow as tf
 import numpy as np
 import pandas as pd
+
+nlp = spacy.load("pt_core_news_md")
 
 from nlp_analytics.src.features import dataprocessing
 from nlp_analytics.src.models.models import build_model_lstm_v2
@@ -38,6 +41,18 @@ class ModelManager:
 
         if self.models is None:
             self.models = build_model_lstm_v2(self.max_len)
+
+    @staticmethod
+    def get_word_key(review_text: str) -> list:
+        """
+        Get word key in review text
+        """
+        adjective = list()
+        doc = nlp(review_text)
+        for token in doc:
+            if token.pos_ == "ADJ":
+                adjective.append(token.text)
+        return adjective
 
     def tokenizer_analytics(self):
         """
@@ -78,13 +93,14 @@ class ModelManager:
         """
         try:
             batch_size = 64
-            X_train, X_test, y_train, y_test = train_test_split(self.X, self.y, test_size=0.33, random_state=42)
+            X_train, X_test, y_train, y_test = train_test_split(self.X, self.y, test_size=0.2, random_state=42)
             history = self.models.fit(X_train, y_train, epochs=10, batch_size=batch_size,
                                       verbose=1, validation_data=(X_test, y_test),
                                       callbacks=[self.early_stopping])
 
-            score, acc = self.models.evaluate(X_test, y_test, verbose=2, batch_size=batch_size)
-            logging.info(f"Final evaluate model: {score} - {acc}")
+            results = self.models.evaluate(X_test, y_test, verbose=2, batch_size=batch_size)
+            print(results)
+            logging.info(f"Final evaluate model: {results}")
             return history
         except ValueError as error:
             logging.error(error)
@@ -102,7 +118,7 @@ class ModelManager:
             logging.error(error)
 
     @staticmethod
-    def data_prepare(review_text: str):
+    def data_prepare(review_text: str) -> str:
         """
         Get cleaned data text
         :param review_text: reviewed text send by users
@@ -113,13 +129,20 @@ class ModelManager:
         text = dataprocessing.remove_stop_words(text)
         return text
 
-    def predict_class(self, review_text: str):
+    def predict_class(self, review_text: str, key_words: bool = False):
         """
          Get inference using reviewed text using loaded model
          :param review_text: reviewed text send by users
+         :param key_words: show list of adjectives find in review text
         """
+        keys_adj = []
+        if key_words:
+            keys_adj = self.get_word_key(review_text)
+
         review_tex = self.fit_transform(self.data_prepare(review_text))
         review_predict = self.models.predict(review_tex).argmax(axis=1)
         review_class = self.sentiment_classes[review_predict[0]]
         print('The predicted sentiment is', review_class)
-        return review_class
+
+        predicted = {"text": review_text, "sentiment": review_class, "adjectives": keys_adj}
+        return predicted

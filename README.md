@@ -69,25 +69,6 @@ my_project/
 ```
 
 ---
-## Natural Language Processing
-### Reducing the size of the problem
-
-For this work, some data treatments were useful to reducing the dimensionality of the problem, mainly
-in removing outliers. Among the methods available, the following were used:
-
-- Removal of stopwords: Common words that usually don't add much to the meaning of a sentence or document.
-- Removal of punctuation and special characters: punctuation and special characters did not comply in any way with the model, on the contrary, they make the problem increase.
-- Word normalization: Words have been normalized to prevent multiple tokens from being created unnecessarily. Furthermore,
-any number in the text has been removed.
-- Context: a special method was created to handle some outliers. In this case, for texts with only one word, only
-considered sentences that have at least one adjective. Adjectives are important in classifying feelings, as they can indicate positive or negative feelings. In addition, the presence of verbs and nouns was also considered.
-to ensure that the phrases have context and that they are nothing more than random typing as in some cases in the dataset.
-
-### Future works
-
-In this project, an LSTM network was used to classify sentiments in product evaluation texts written by users. One of the advantages of the LSTM network is that it can retain information in the long term, which allows for good applicability in text classification. Another machine learning model that has an advantage over this is the BERT. For this project, the LSTM network was chosen due to the shorter computing time to process and shorter inference time, but for future work, I would still like to compare the BERT models to this type of data.
-
----
 ## License
 
 This project is licensed under the MIT License.
