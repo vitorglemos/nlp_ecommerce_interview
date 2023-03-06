@@ -37,6 +37,23 @@ You can install this package through setup.py. To do this, run the command insid
 ```bash
 python3 setup.py install
 ```
+---
+
+### Example of use
+
+After installation, it is possible to instantiate in Python code with the model already preloaded. Below is an example of using the application using inference from the last trained model.
+
+```python
+from nlp_analytics.src.models.manager import ModelManager
+
+if __name__ == '__main__':
+
+    model_manager = ModelManager()
+    model_manager.load_model(file_path_model="./nlp_analytics/data/output/model_v7.h5",
+                             file_path_tokenizer="./nlp_analytics/data/output/tokenizer_v7.pickle")
+    print(model_manager.predict_class("Cadeira confortável, a cadeira é rosa, muito bonita. Mas parece frágil!",
+                                      key_words=True))
+```
 
 ### Project Tree
 ```bash
