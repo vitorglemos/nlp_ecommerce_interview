@@ -62,12 +62,22 @@ to ensure that the phrases have context and that they are nothing more than rand
 Below is the list of results obtained based on the last trained model. The last version of this project was trained with the Bidirectional LSTM model and with the B2W-Processed03.csv. From the B2W-Processed03.csv base, some noisy comments were excluded, in addition to meaningless texts with only one word.
 
 | Model        | Last loss | Precision | Recall | Acc |
-|--------------|-----------|-----------|--------|-----|
-| BI-LSTM      | ***       |   ***     |  **    | **  |
+|--------------|-----------|-----------|------|-----|
+| BI-LSTM      | 0.4665    |   0.8486     |   0.8176   |0.8316  |
 
 | Model        | File name   | Tokenization        | 
 |--------------|-------------|---------------------|
-| BI-LSTM      | model_v8.h5 | tokenizer_v8.pickle |  
+| BI-LSTM      | model_v7.h5 | tokenizer_v7.pickle |  
+
+---
+### Sample output
+
+```json
+{'text': 'Não gostei de nada, muito ruim', 'sentiment': 'negative', 'adjectives': ['ruim']}
+{'text': 'A cor é feia, mas o produto é bom', 'sentiment': 'neutral', 'adjectives': ['feia', 'bom']}
+{'text': 'Estou muito satisfeito, amei o produto. Ele é lindo!', 'sentiment': 'positive', 'adjectives': ['satisfeito']}
+{'text': 'Cadeira confortável, a cadeira é rosa, muito bonita. Mas parece frágil!', 'sentiment': 'neutral', 'adjectives': ['confortável', 'bonita', 'frágil']}
+```
 
 ---
 ### Future works
