@@ -1,5 +1,5 @@
 import unittest
-from src.features import dataprocessing
+from nlp_analytics.src.features import dataprocessing
 
 validation_english_str = "Hi, this is only a test."
 validation_portuguese_str = "Olá, este é apenas um teste."
