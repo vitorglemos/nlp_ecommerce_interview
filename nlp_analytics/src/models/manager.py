@@ -10,6 +10,7 @@ nlp = spacy.load("pt_core_news_md")
 from nlp_analytics.src.features import dataprocessing
 from nlp_analytics.src.models.models import build_model_lstm_v2
 from nlp_analytics.src.models.models import build_model_lstm_v0
+from nlp_analytics.src.models.models import build_model_lstm_v2_2
 
 from keras.utils import pad_sequences
 from keras.callbacks import EarlyStopping

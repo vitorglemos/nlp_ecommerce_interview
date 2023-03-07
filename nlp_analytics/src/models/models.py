@@ -50,6 +50,17 @@ def build_model_lstm_v6(input_len):
     return model
 
 
+def build_model_lstm_v2_2(input_len):
+    max_words = 10000
+    embed_dim = 128
+    model = Sequential()
+    model.add(Embedding(max_words, embed_dim, input_length=input_len))
+    model.add(LSTM(64))
+    model.add(Dense(3, activation='softmax'))
+    model.compile(loss='categorical_crossentropy', optimizer=Adam(learning_rate=1e-3),
+                  metrics=['accuracy', Precision(), Recall()])
+    return model
+
 def build_model_lstm_v2(input_len):
     max_words = 10000
     embed_dim = 128

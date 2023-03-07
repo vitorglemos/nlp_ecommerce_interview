@@ -18,4 +18,4 @@ if __name__ == "__main__":
         model_manager = ModelManager()
         model_manager.load_model(file_path_model="./nlp_analytics/data/output/model_v7.h5",
                                  file_path_tokenizer="./nlp_analytics/data/output/tokenizer_v7.pickle")
-        print(model_manager.predict_class("Cadeira confortável, a cadeira é rosa, muito bonita. Mas parece frágil!", key_words=True))
+        print(model_manager.predict_class("NÃO RECEBI O PRODUTO, ENTREGA HORRÍVEL!", key_words=True))
